@@ -12,6 +12,12 @@ Installing Hugpee is very simple, just run:
 pip3 install hugpee --upgrade
 ```
 
+# Important #
+
+This module uses an altered version of hug. The changes have been proposed to the main hug repository and expecting approval:
+
+[Pull Request](https://github.com/timothycrosley/hug/pull/86)
+
 # Usage #
 
 Consider a scenario where `Person` is our peewee model. Creating the CRUD endpoints for hug is very simple with HugPee:
