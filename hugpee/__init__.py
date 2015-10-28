@@ -45,21 +45,15 @@ class HugPee(object):
         """Manually call the decorator function to register the generated CRUD methods."""
         hug.call(accept=['post'],
                  urls=["/{0}".format(self.base)],
-                 parameters=self.fields
                  )(self.create)
         hug.call(accept=['get'],
                  urls=["/{0}".format(self.base), "/{0}/{{{1}}}".format(self.base, self.pk_n)],
-                 parameters=self.pk,
-                 defaults=self.pk_d,
                  )(self.read_skeleton)
         hug.call(accept=['put'],
                  urls=["/{0}".format(self.base), "/{0}/{{{1}}}".format(self.base, self.pk_n)],
-                 parameters=self.all,
-                 defaults=self.fields_d,
                  )(self.update)
         hug.call(accept=['delete'],
                  urls=["/{0}".format(self.base), "/{0}/{{{1}}}".format(self.base, self.pk_n)],
-                 parameters=self.pk
                  )(self.delete)
 
     def create_skeleton(self, *args, **kwargs):
@@ -101,7 +95,7 @@ class HugPee(object):
 
     def read_skeleton(self, *args, **kwargs):
         """Retrieve a record"""
-        key = kwargs[self.pk_n] if kwargs[self.pk_n] else args[0] if len(args) > 0 else None
+        key = kwargs[self.pk_n] if self.pk_n in kwargs else args[0] if len(args) > 0 else None
         if key:
             x = self.model.get(self.model._meta.fields[self.pk_n] == key)
             result = {self.base: model_to_dict(x)}
@@ -112,7 +106,7 @@ class HugPee(object):
 
     def update_skeleton(self, *args, **kwargs):
         """Update an existing record"""
-        key = kwargs[self.pk_n] if kwargs[self.pk_n] else args[0] if len(args) > 0 else None
+        key = kwargs[self.pk_n] if self.pk_n in kwargs else args[0] if len(args) > 0 else None
         error = False
         error_messages = []
         # check foreign key constraints
@@ -152,7 +146,7 @@ class HugPee(object):
 
     def delete_skeleton(self, *args, **kwargs):
         """Delete an existing record"""
-        key = kwargs[self.pk_n] if kwargs[self.pk_n] else args[0] if len(args) > 0 else None
+        key = kwargs[self.pk_n] if self.pk_n in kwargs else args[0] if len(args) > 0 else None
         error = False
         error_messages = []
         try:
