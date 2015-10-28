@@ -1,9 +1,6 @@
 # HugPee #
 HugPee simplifies the creation of RESTful CRUD endpoints in hug, for peewee models.
 
-[![License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://pypi.python.org/pypi/hugpee/)
-
-
 # Installing HugPee #
 
 Installing Hugpee is very simple, just run:
