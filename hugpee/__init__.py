@@ -101,7 +101,7 @@ class HugPee(object):
 
     def read_skeleton(self, *args, **kwargs):
         """Retrieve a record"""
-        key = kwargs[self.pk_n] if kwargs[self.pk_n] else args[0] if len(args) > 0 else None
+        key = kwargs[self.pk_n] if self.pk_n in kwargs else args[0] if len(args) > 0 else None
         if key:
             x = self.model.get(self.model._meta.fields[self.pk_n] == key)
             result = {self.base: model_to_dict(x)}
@@ -112,7 +112,7 @@ class HugPee(object):
 
     def update_skeleton(self, *args, **kwargs):
         """Update an existing record"""
-        key = kwargs[self.pk_n] if kwargs[self.pk_n] else args[0] if len(args) > 0 else None
+        key = kwargs[self.pk_n] if self.pk_n in kwargs else args[0] if len(args) > 0 else None
         error = False
         error_messages = []
         # check foreign key constraints
@@ -152,7 +152,7 @@ class HugPee(object):
 
     def delete_skeleton(self, *args, **kwargs):
         """Delete an existing record"""
-        key = kwargs[self.pk_n] if kwargs[self.pk_n] else args[0] if len(args) > 0 else None
+        key = kwargs[self.pk_n] if self.pk_n in kwargs else args[0] if len(args) > 0 else None
         error = False
         error_messages = []
         try:
