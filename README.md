@@ -37,13 +37,22 @@ def get_all_hugs():
 Here is the full working example:
 
 ```python
-import hug, peewee
+import hug
+from peewee import SqliteDatabase, Model
+from peewee import PrimaryKeyField, CharField, DateField, BooleanField
 import hugpee
 
+db = SqliteDatabase(":memory:")
+
 class Person(Model):
+    ID = PrimaryKeyField()
     name = CharField()
     birthday = DateField()
     is_relative = BooleanField()
+    class Meta:
+        database = db
+
+db.create_tables([Person])
 
 hugpee.HugPee(Person)
 
@@ -61,3 +70,5 @@ This will create the following endpoints:
 | GET         | /person , /person/{id} | id                              |
 | PUT         | /person , /person/{id} | id, name, birthday, is_relative |
 | DELETE      | /person , /person/{id} | id                              |
+
+Note that the primary key, in this case the id, can be provided either as part of the URI or as a parameter.
