@@ -19,7 +19,6 @@ def cpartial(func, *a, **k):
 class HugPee(object):
 
     def __init__(self, model, base=None):
-        """"""
         self.model = model
         self.base = model.__name__.lower() if not base else base
         # retrieve primary key and fields
